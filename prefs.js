@@ -1,50 +1,49 @@
 'use strict';
 
-const { Adw, Gio, Gtk } = imports.gi;
+import Adw from 'gi://Adw';
+import Gio from 'gi://Gio';
+import Gtk from 'gi://Gtk';
 
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
+import { ExtensionPreferences, gettext, pgettext } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 const _ = (text, context) => {
-    return context ? ExtensionUtils.pgettext(context, text) : ExtensionUtils.gettext(text);
+    return context ? pgettext(context, text) : gettext(text);
 };
 
-var init = () => {
-    ExtensionUtils.initTranslations(Extension.uuid);
-};
+export default class extends ExtensionPreferences {
+    fillPreferencesWindow(window) {
+        window._settings = this.getSettings();
 
-var fillPreferencesWindow = (window) => {
-    window._settings = ExtensionUtils.getSettings();
+        const delaySpinBox = new Gtk.SpinButton({
+            adjustment: new Gtk.Adjustment({
+                lower: 1,
+                upper: 5000,
+                step_increment: 1,
+            }),
+            valign: Gtk.Align.CENTER,
+        });
+        window._settings.bind(
+            `delay`,
+            delaySpinBox,
+            `value`,
+            Gio.SettingsBindFlags.DEFAULT
+        );
 
-    const delaySpinBox = new Gtk.SpinButton({
-        adjustment: new Gtk.Adjustment({
-            lower: 1,
-            upper: 5000,
-            step_increment: 1,
-        }),
-        valign: Gtk.Align.CENTER,
-    });
-    window._settings.bind(
-        `delay`,
-        delaySpinBox,
-        `value`,
-        Gio.SettingsBindFlags.DEFAULT
-    );
+        const delayRow = new Adw.ActionRow({
+            activatable_widget: delaySpinBox,
+            subtitle: _(`Delay in applying the workaround (a very short delay may not work)`),
+            title: _(`Delay (in milliseconds)`),
+        });
+        delayRow.add_suffix(delaySpinBox);
 
-    const delayRow = new Adw.ActionRow({
-        activatable_widget: delaySpinBox,
-        subtitle: _(`Delay in applying the workaround (a very short delay may not work)`),
-        title: _(`Delay (in milliseconds)`),
-    });
-    delayRow.add_suffix(delaySpinBox);
+        const generalGroup = new Adw.PreferencesGroup({
+            title: _(`General`, `General options`),
+        });
+        generalGroup.add(delayRow);
 
-    const generalGroup = new Adw.PreferencesGroup({
-        title: _(`General`, `General options`),
-    });
-    generalGroup.add(delayRow);
+        const page = new Adw.PreferencesPage();
+        page.add(generalGroup);
 
-    const page = new Adw.PreferencesPage();
-    page.add(generalGroup);
-
-    window.add(page);
-};
+        window.add(page);
+    }
+}
