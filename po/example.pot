@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 14:50+0200\n"
+"POT-Creation-Date: 2024-01-20 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: prefs.js:36
+#: prefs.js:34
 msgid "Delay in applying the workaround (a very short delay may not work)"
 msgstr ""
 
-#: prefs.js:37
+#: prefs.js:35
 msgid "Delay (in milliseconds)"
 msgstr ""
 
-#: prefs.js:42
+#: prefs.js:40
 msgctxt "General options"
 msgid "General"
 msgstr ""
