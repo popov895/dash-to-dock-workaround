@@ -14,15 +14,29 @@ export default class extends Extension {
         if (!dashToDockSettingsSchema) {
             return;
         }
+
+        const values = {
+            'animation-time': GLib.Variant.new_double(0),
+            'dock-fixed': GLib.Variant.new_boolean(false),
+        };
+
         const dashToDockSettings = new Gio.Settings({
             settings_schema: dashToDockSettingsSchema,
         });
-        dashToDockSettings.set_boolean(`dock-fixed`, false);
+
+        const snapshot = {};
+        for (const key in values) {
+            snapshot[key] = dashToDockSettings.get_value(key);
+            dashToDockSettings.set_value(key, values[key]);
+        }
+
         this._showDashToDockTimeoutId = GLib.timeout_add(
             GLib.PRIORITY_DEFAULT,
             this.getSettings().get_int(`delay`),
             () => {
-                dashToDockSettings.set_boolean(`dock-fixed`, true);
+                for (const key in snapshot) {
+                    dashToDockSettings.set_value(key, snapshot[key]);
+                }
                 return GLib.SOURCE_REMOVE;
             }
         );
@@ -31,7 +45,7 @@ export default class extends Extension {
     disable() {
         if (this._showDashToDockTimeoutId) {
             GLib.Source.remove(this._showDashToDockTimeoutId);
-            this._showDashToDockTimeoutId = null;
+            delete this._showDashToDockTimeoutId;
         }
     }
 }
