@@ -18,7 +18,7 @@ export default class extends Extension {
             settings_schema: dashToDockSettingsSchema,
         });
         dashToDockSettings.set_boolean(`dock-fixed`, false);
-        GLib.timeout_add(
+        this._showDashToDockTimeoutId = GLib.timeout_add(
             GLib.PRIORITY_DEFAULT,
             this.getSettings().get_int(`delay`),
             () => {
@@ -26,5 +26,12 @@ export default class extends Extension {
                 return GLib.SOURCE_REMOVE;
             }
         );
+    }
+
+    disable() {
+        if (this._showDashToDockTimeoutId) {
+            GLib.Source.remove(this._showDashToDockTimeoutId);
+            this._showDashToDockTimeoutId = null;
+        }
     }
 }
