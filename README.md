@@ -4,6 +4,8 @@ This extension is a workaround for a bug where maximized windows may cover the D
 
 ### Installation
 
+This extension is available for installation on the [GNOME Shell Extensions website](https://extensions.gnome.org/extension/6712/dash-to-dock-workaround/).
+
 To install manually follow the steps below:
 
 - download the latest version of the extension from the [releases page](https://github.com/popov895/dash-to-dock-workaround/releases)
