@@ -18,7 +18,7 @@ var fillPreferencesWindow = (window) => {
 
     const delaySpinBox = new Gtk.SpinButton({
         adjustment: new Gtk.Adjustment({
-            lower: 1,
+            lower: 0,
             upper: 5000,
             step_increment: 1,
         }),
@@ -33,7 +33,7 @@ var fillPreferencesWindow = (window) => {
 
     const delayRow = new Adw.ActionRow({
         activatable_widget: delaySpinBox,
-        subtitle: _(`Delay in applying the workaround (a very short delay may not work)`),
+        subtitle: _(`Delay in applying the workaround (increase if it doesn't work for you)`),
         title: _(`Delay (in milliseconds)`),
     });
     delayRow.add_suffix(delaySpinBox);
