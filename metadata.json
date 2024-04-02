@@ -3,7 +3,7 @@
     "name": "Dash-To-Dock Workaround",
     "description": "Quick fix for the https://bugs.launchpad.net/ubuntu/+source/gnome-shell-extension-ubuntu-dock/+bug/1961508",
     "url": "https://github.com/popov895/dash-to-dock-workaround",
-    "version": 2,
+    "version": 3,
     "shell-version": ["45", "46"],
     "settings-schema": "org.gnome.shell.extensions.dash-to-dock-workaround",
     "donations": {
