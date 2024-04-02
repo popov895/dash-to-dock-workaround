@@ -2,8 +2,8 @@
 <schemalist>
     <schema id="org.gnome.shell.extensions.dash-to-dock-workaround" path="/org/gnome/shell/extensions/dash-to-dock-workaround/">
         <key name="delay" type="i">
-            <range min="1" max="5000"/>
-            <default>350</default>
+            <range min="0" max="5000"/>
+            <default>0</default>
         </key>
     </schema>
 </schemalist>
